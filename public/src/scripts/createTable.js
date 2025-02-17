@@ -1,4 +1,4 @@
-import moment from "moment/dist/moment.js"
+import moment from "/moment/dist/moment.js"
 import { generateFetchComponent } from "./fetchCache.js"
 import { parseConfiguration } from "./jsonParser.js";
 

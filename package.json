@@ -4,7 +4,7 @@
   "description": "Repository per il compito visite specialistiche di TPSI.",
   "main": "src/index.js",
   "scripts": {
-    "start": "npm install -y && npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"
+    "start": "npm install -y && npx tailwindcss -i ./public/input.css -o ./public/output.css && node server.js"
   },
   "repository": {
     "type": "git",

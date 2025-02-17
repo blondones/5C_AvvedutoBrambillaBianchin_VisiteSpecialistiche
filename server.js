@@ -16,6 +16,7 @@ app.use(
   })
 );
 app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/moment/dist/moment.js", express.static(path.join(__dirname, "/node_modules/moment/dist/moment.js")));
 
 
 app.post("/insert", async (req, res) => {
