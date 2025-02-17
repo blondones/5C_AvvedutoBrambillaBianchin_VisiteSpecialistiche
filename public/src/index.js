@@ -10,7 +10,6 @@ let offset = 0;
 
 
 const fetchComp = generateFetchComponent();
-fetchComp.build("../../config.json").then(() => {
     const table = createTable(document.getElementById("avabTable"));
     table.buildTable().then(console.log).catch(console.error)
 
@@ -75,4 +74,3 @@ fetchComp.build("../../config.json").then(() => {
     navbar.build("../../config.json").then(() => {
         navbar.render();
     }).catch(console.error);
-}).catch(console.error);

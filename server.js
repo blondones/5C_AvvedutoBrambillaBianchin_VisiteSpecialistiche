@@ -27,8 +27,13 @@ app.post("/insert", async (req, res) => {
   
 
 app.get("/visits", async(req, res) => {
-  const imgs = await db.select();
-  res.json({ imgs: imgs });
+  const visits = await db.select();
+  res.json({ visits: visits });
+});
+
+app.get("/config", async(req, res) => {
+  const conf = await fetch("config.json");
+  res.json({ config: conf });
 });
 
 
