@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link href="./output.css" rel="stylesheet">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Prenotazioni - Curoben</title>
+</head>
+
+<body>
+    <nav class="bg-gray-800" id="navbar"></nav>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h1 class="title">Centro visite specilistiche Curoben</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button id="back" type="button"
+                    class="command text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 5H1m0 0L5 1M1 5l4 4" />
+                    </svg>
+                    <span class="sr-only">Icon description</span>
+                </button>
+            </div>
+            <div class="col-5"></div>
+            <div class="col">
+                <button id="ahead" type="button"
+                    class="command text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                    <span class="sr-only">Icon description</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="loading"></div>
+                <div id="avabTable" class="relative overflow-x-auto shadow-md sm:rounded-lg"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modulo di prenotazione</h1>
+                                <button type="button" class="btn-close cl" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./index.js"></script>
+</body>
+
+</html>

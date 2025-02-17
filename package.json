@@ -1,0 +1,27 @@
+{
+  "name": "curoben",
+  "version": "1.0.0",
+  "description": "Repository per il compito visita specialistica di TPSI.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm install -y && npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche.git"
+  },
+  "author": "Luca Avveduto, Angelo Ripamonti e Alexandros Kotis",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche/issues"
+  },
+  "homepage": "https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "module": "^1.2.5",
+    "moment": "^2.30.1",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^3.4.14"
+  },
+  "type": "module"
+}
