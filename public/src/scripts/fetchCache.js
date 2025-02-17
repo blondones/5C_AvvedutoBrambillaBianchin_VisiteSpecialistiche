@@ -32,7 +32,7 @@ export function generateFetchComponent() {
             });
         },
         getData: () => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {g
                 fetch(config.cacheURLGet, {
                         method: "POST",
                         headers: {

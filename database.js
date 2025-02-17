@@ -31,6 +31,7 @@ module.exports = DBComponent = (conf) => {
             hour INT NOT NULL,
             name VARCHAR(50),
             FOREIGN KEY (idType) REFERENCES type(id)  
+            )
         `);
     };
     (async () => { await createTable() })();
