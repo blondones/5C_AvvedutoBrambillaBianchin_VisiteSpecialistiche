@@ -30,12 +30,6 @@ app.get("/visits", async(req, res) => {
   res.json({ imgs: imgs });
 });
 
-app.delete("/delete/:id", async(req, res) => {
-  let imgs = await db.select();
-  imgs = imgs.filter((element) => element.id == req.params.id);
-  await db.del(imgs[0]);
-  res.json({ result: "Ok" });
-});
 
 const server = http.createServer(app);
 server.listen(80, () => {

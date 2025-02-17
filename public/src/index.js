@@ -2,7 +2,7 @@ import { navBarComponent } from "./scripts/navbar.js";
 import { createForm } from "./scripts/createForm.js";
 import { createTable } from "./scripts/createTable.js";
 import { generateFetchComponent } from "./scripts/fetchCache.js";
-import moment from "../../node_modules/moment/dist/moment.js";
+import moment from "moment/dist/moment.js";
 
 const forwardButton = document.getElementById("ahead");
 const backButton = document.getElementById("back");

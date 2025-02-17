@@ -18,12 +18,14 @@ module.exports = DBComponent = (conf) => {
     };
 
     const createTable = async () => {
-        return await executeQuery(`
-        CREATE TABLE IF NOT EXISTS type (
+        await executeQuery(
+            `
+    CREATE TABLE IF NOT EXISTS type (
             id INT PRIMARY KEY AUTO_INCREMENT,
             name varchar(20)
+        );`
         )
-
+        return await executeQuery(`
         CREATE TABLE IF NOT EXISTS booking (
             id int PRIMARY KEY AUTO_INCREMENT,
             idType int NOT NULL,
@@ -31,15 +33,15 @@ module.exports = DBComponent = (conf) => {
             hour INT NOT NULL,
             name VARCHAR(50),
             FOREIGN KEY (idType) REFERENCES type(id)  
-            )
-        `);
+            );`
+        );
     };
     (async () => { await createTable() })();
 
     return {
         insert: async (visit) => {
             const template = `INSERT INTO visits (idType, date, hour, name) VALUES ('$IDTYPE', '$DATE', '$HOUR', '$NAME')`;
-            
+
             let sql = template.replace("$IDTYPE", visit.idType);
             console.log(visit.idType)
             sql = sql.replace("$DATE", visit.date);
@@ -54,13 +56,7 @@ module.exports = DBComponent = (conf) => {
         select: async () => {
             const sql = `SELECT * FROM visits`;
             return await executeQuery(sql);
-        },
+        }
 
-        del: async (visit) => {
-            const query = "DELETE FROM visits WHERE id=$ID";
-            let sql = query.replace("$ID", visit.id);
-            return await executeQuery(sql);
-        },
-    
     };
 };
