@@ -40,7 +40,7 @@ module.exports = DBComponent = (conf) => {
 
     return {
         insert: async (visit) => {
-            const template = `INSERT INTO visits (idType, date, hour, name) VALUES ('$IDTYPE', '$DATE', '$HOUR', '$NAME')`;
+            const template = `INSERT INTO booking (idType, date, hour, name) VALUES ('$IDTYPE', '$DATE', '$HOUR', '$NAME')`;
 
             let sql = template.replace("$IDTYPE", visit.idType);
             console.log(visit.idType)
@@ -54,7 +54,7 @@ module.exports = DBComponent = (conf) => {
         },
 
         select: async () => {
-            const sql = `SELECT * FROM visits`;
+            const sql = `SELECT * FROM booking`;
             return await executeQuery(sql);
         }
 
