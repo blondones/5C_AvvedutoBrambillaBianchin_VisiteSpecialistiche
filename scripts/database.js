@@ -40,6 +40,7 @@ module.exports = DBComponent = (conf) => {
 
     return {
         insert: async (visit) => {
+            console.log(visit)
             const template = `INSERT INTO booking (idType, date, hour, name) VALUES ('$IDTYPE', '$DATE', '$HOUR', '$NAME')`;
 
             let sql = template.replace("$IDTYPE", visit.idType);

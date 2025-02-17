@@ -25,36 +25,33 @@ export const createTable = (parentElement) => {
       document.querySelector("#loading").classList.remove("hidden");
       document.querySelector("#loading").classList.remove("showable");
       currentWeekOffset = offset ?? 0;
-      fetchComp.getData().then((resp) => {
-        console.log(resp);
-        availabilities = JSON.parse(resp);
-        const weekDates = getWeekDates(currentWeekOffset);
+      availabilities = config;
+      const weekDates = getWeekDates(currentWeekOffset);
 
-        let headerRow = `<tr><th class="px-6 py-3">Ora</th>`;
-        weekDates.forEach(date => {
-          headerRow += `<th class="px-6 py-3">` + moment(date, `DDMMYYYY`).format("dddd DD/MM/YYYY") + `</th>`;
-        });
-        headerRow += `</tr>`;
-
-        const hours = config.hours;
-        let rows = ``;
-        hours.forEach(hour => {
-          rows += `<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"><th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">` + hour + `:00</th>`;
-          weekDates.forEach(date => {
-            const key = selectedCategory + `-` + date + `-` + hour;
-            const booking = availabilities[key] || ``;
-            rows += `<td class="px-6 py-4"">` + (booking ? booking : ``) + `</td>`;
-          });
-          rows += `</tr>`;
-        });
-
-        const tableHTML =
-          `<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">` + headerRow + `</thead>` +
-          `<tbody>` + rows + `</tbody></table>`;
-
-        parentElement.innerHTML = tableHTML;
-        document.querySelector("#loading").classList.add("hidden");
+      let headerRow = `<tr><th class="px-6 py-3">Ora</th>`;
+      weekDates.forEach(date => {
+        headerRow += `<th class="px-6 py-3">` + moment(date, `DDMMYYYY`).format("dddd DD/MM/YYYY") + `</th>`;
       });
+      headerRow += `</tr>`;
+
+      const hours = [8,9,10,11,12];
+      let rows = ``;
+      hours.forEach(hour => {
+        rows += `<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"><th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">` + hour + `:00</th>`;
+        weekDates.forEach(date => {
+          const key = selectedCategory + `-` + date + `-` + hour;
+          const booking = availabilities[key] || ``;
+          rows += `<td class="px-6 py-4"">` + (booking ? booking : ``) + `</td>`;
+        });
+        rows += `</tr>`;
+      });
+
+      const tableHTML =
+        `<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">` + headerRow + `</thead>` +
+        `<tbody>` + rows + `</tbody></table>`;
+
+      parentElement.innerHTML = tableHTML;
+      document.querySelector("#loading").classList.add("hidden");
       document.querySelector("#loading").innerHTML =
         `<div class="flex-col gap-4 w-full flex items-center justify-center">
   <div class="w-28 h-28 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">

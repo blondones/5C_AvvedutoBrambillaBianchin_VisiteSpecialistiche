@@ -15,9 +15,10 @@ const booking = await fetchComp.getBooks();
 const table = createTable(document.getElementById("avabTable"));
 table.buildTable(booking);
 
-
+const f = createForm(document.querySelector(".content"));
 const navbar = navBarComponent(document.getElementById("navbar"));
-navbar.callback((element) => {
+
+await navbar.callback(async(element) => {
     forwardButton.onclick = () => {
         offset++;
         table.render(element, offset);
@@ -27,51 +28,46 @@ navbar.callback((element) => {
         offset--;
         table.render(element, offset);
     };
-
     table.render(element, offset);
-    const f = createForm(document.querySelector(".content"));
+
     f.setLabels(["Data", "Ora", "Nominativo"]);
     f.oncancel(() => { table.render(element, offset); });
-    f.onsubmit((values) => {
-        return new Promise((resolve, reject) => {
-            let validateInput;
-            const date = moment(values[0], "YYYY/MM/DD");
-            const closed = ["Saturday", "Sunday"];
-            if (date.calendar() < moment().calendar("MM/DD/YYYY") || closed.includes(date.format("dddd")) || isNaN(values[1])) validateInput = false;
-            const key = [element, date.format("DDMMYYYY"), values[1]].join("-");
-            fetchComp.getData().then((respose) => {
-                const json = JSON.parse(respose);
-                if (!json[key] && validateInput === undefined) {
-                    json[key] = values[2];
-                    fetchComp.setData(json).then(() => {
-                        table.render(element, offset);
-                        validateInput = true;
-                        document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
-                        resolve(validateInput);
-                    }).catch((error) => {
-                        console.log(error);
-                        validateInput = false;
-                        document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
-                        reject(validateInput);
-                    });
-                } else {
-                    validateInput = false;
-                    document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
-                    reject(validateInput);
-                }
-            }).catch((error) => {
-                console.log(error);
+    f.render();
+    f.onsubmit(async (values) => {
+        let validateInput;
+        const date = moment(values[0], "YYYY/MM/DD");
+        const closed = ["Saturday", "Sunday"];
+        if (date.calendar() < moment().calendar("MM/DD/YYYY") || closed.includes(date.format("dddd")) || isNaN(values[1])) validateInput = false;
+        const key = [element.name, date.format("DDMMYYYY"), values[1]].join("-");
+        const json = await fetchComp.getBooks().catch(() => {
+            validateInput = false;
+            document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
+            return false;
+        });
+        if (!json[key] && validateInput === undefined) {
+            json[key] = values[2];
+            const book = {}
+            book[key] = values[2];
+            console.log(key)
+            await fetchComp.book(book).catch((error) => {
                 validateInput = false;
                 document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
-                reject(validateInput);
+                return false;
             });
-        });
+            table.render(element, offset);
+            validateInput = true;
+            document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
+            return true;
+        } else {
+            validateInput = false;
+            document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
+            return false;
+        }
     });
-    f.render();
-    setInterval(() => {
-        table.render(element, offset);
-    }, 300000);
-})
+});
+setInterval(() => {
+    table.render(element, offset);
+}, 300000);
 
 navbar.build(types);
 navbar.render();

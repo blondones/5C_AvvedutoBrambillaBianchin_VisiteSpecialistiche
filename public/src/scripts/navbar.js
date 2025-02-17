@@ -5,20 +5,21 @@ export function navBarComponent(parentElement) {
 
     function activeNavBar(element) {
         deactiveAllNavBar(config);
-        document.getElementById(element).classList.remove("text-gray-300", "hover:bg-gray-700", "hover:text-white");
-        document.getElementById(element).classList.add("text-white");
+        document.getElementById(element.name).classList.remove("text-gray-300", "hover:bg-gray-700", "hover:text-white");
+        document.getElementById(element.name).classList.add("text-white");
     }
 
     function deactiveAllNavBar() {
         config.forEach((element) => {
-            document.getElementById(element).classList.remove("text-white");
-            document.getElementById(element).classList.add("text-gray-300", "hover:bg-gray-700", "hover:text-white");
+            document.getElementById(element.name).classList.remove("text-white");
+            document.getElementById(element.name).classList.add("text-gray-300", "hover:bg-gray-700", "hover:text-white");
         })
     }
 
     return {
         build: (conf) => {
            config = conf;
+           bool = false;
         },
         render: () => {
             let newNavBar = `<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -55,7 +56,7 @@ export function navBarComponent(parentElement) {
                 callback(element);
             })
         },
-        callback(value){
+        callback: async function(value){
             callback = value;
         }
     }
