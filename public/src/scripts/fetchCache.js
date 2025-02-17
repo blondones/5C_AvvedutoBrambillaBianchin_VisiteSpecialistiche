@@ -1,52 +1,16 @@
-import {
-    parseConfiguration
-} from "./jsonParser.js"
-
-export function generateFetchComponent() {
-    let config;
+export const generateFetchComponent = () => {
     return {
-        build: (pathConfig) => {
-            return new Promise(function (resolve, reject) {
-                parseConfiguration(pathConfig).then((c) => {
-                    config = c;
-                    resolve("ok");
-                }).catch(reject);
-            })
+        uploadImage: async(data) => {
+            const response = await fetch("/insert", {
+                method: "POST",
+                body: data
+            }).catch(console.error);
+            return response.json();
         },
-        setData: (data) => {
-            return new Promise((resolve, reject) => {
-                fetch(config.cacheURLSet, {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json",
-                            "key": config.cacheToken
-                        },
-                        body: JSON.stringify({
-                            key: config.cacheKey,
-                            value: JSON.stringify(data)
-                        })
-                    })
-                    .then(r => r.json())
-                    .then(data => resolve(data.result))
-                    .catch(err => reject(err.result));
-            });
-        },
-        getData: () => {
-            return new Promise((resolve, reject) => {g
-                fetch(config.cacheURLGet, {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json",
-                            "key": config.cacheToken
-                        },
-                        body: JSON.stringify({
-                            key: config.cacheKey
-                        })
-                    })
-                    .then(r => r.json())
-                    .then(data => resolve(data.result))
-                    .catch(err => reject(err.result));
-            })
+        getImages: async() => {
+            const response = await fetch("/visits").catch(console.error);
+            const json = await response.json();
+            return json.visits;
         }
     };
 }
