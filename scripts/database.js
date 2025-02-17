@@ -56,6 +56,10 @@ module.exports = DBComponent = (conf) => {
         select: async () => {
             const sql = `SELECT * FROM booking`;
             return await executeQuery(sql);
+        },
+        selectTypes: async () => {
+            const sql = `SELECT * FROM type`;
+            return await executeQuery(sql);
         }
 
     };

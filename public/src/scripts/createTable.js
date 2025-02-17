@@ -1,6 +1,4 @@
 import moment from "/moment/dist/moment.js"
-import { generateFetchComponent } from "./fetchCache.js"
-import { parseConfiguration } from "./jsonParser.js";
 
 export const createTable = (parentElement) => {
   let availabilities = {};
@@ -67,18 +65,8 @@ export const createTable = (parentElement) => {
 </div>`;
     },
 
-    buildTable: () => {
-      return new Promise((resolve, reject) => {
-        fetchComp = generateFetchComponent();
-        fetchComp.build("../../config.json").then(() => {
-          return parseConfiguration("../../config.json")
-            .then((parsedConfig) => {
-              config = parsedConfig;
-              resolve("ok")
-            });
-        }).catch(reject)
-      });
-
+    buildTable: (conf) => {
+      config = conf;
     }
   };
 };

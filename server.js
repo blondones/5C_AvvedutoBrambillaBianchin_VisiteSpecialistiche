@@ -31,9 +31,9 @@ app.get("/visits", async(req, res) => {
   res.json({ visits: visits });
 });
 
-app.get("/config", async(req, res) => {
-  const conf = await fetch("config.json");
-  res.json({ config: conf });
+app.get("/types", async(req, res) => {
+  const types = await db.selectTypes();
+  res.json({ types: types });
 });
 
 

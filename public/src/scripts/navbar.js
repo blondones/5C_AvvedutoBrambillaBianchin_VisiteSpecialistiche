@@ -1,5 +1,3 @@
-import { parseConfiguration } from "./jsonParser.js"
-
 export function navBarComponent(parentElement) {
     let config;
     let bool;
@@ -12,21 +10,15 @@ export function navBarComponent(parentElement) {
     }
 
     function deactiveAllNavBar() {
-        config.tipologie.forEach((element) => {
+        config.forEach((element) => {
             document.getElementById(element).classList.remove("text-white");
             document.getElementById(element).classList.add("text-gray-300", "hover:bg-gray-700", "hover:text-white");
         })
     }
 
     return {
-        build: (path) => {
-            return new Promise((resolve, reject) => {
-                return parseConfiguration(path).then(c => {
-                    config = c;
-                    bool = false;
-                    resolve("ok");
-                }).catch(reject);
-            })
+        build: (conf) => {
+           config = conf;
         },
         render: () => {
             let newNavBar = `<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -35,8 +27,8 @@ export function navBarComponent(parentElement) {
                                 <div class="flex items-center">
                                     <div class="flex space-x-4">`
 
-            config.tipologie.forEach((element) => {
-                newNavBar += `<button class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" id=${element}>${element}</button>`
+            config.forEach((element) => {
+                newNavBar += `<button class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" id=${element.name}>${element.name}</button>`
             })
             newNavBar += `</div>
                                 </div>
@@ -53,12 +45,12 @@ export function navBarComponent(parentElement) {
             document.querySelector("#open").onclick = () => document.querySelector("#result").innerText = "";
 
             if (bool === false) {
-                activeNavBar(config.tipologie[0], config.tipologie);
+                activeNavBar(config[0], config);
                 bool = true;
-                callback(config.tipologie[0]);
+                callback(config[0]);
             }
 
-            config.tipologie.forEach(element => document.getElementById(element).onclick = () => {
+            config.forEach(element => document.getElementById(element.name).onclick = () => {
                 activeNavBar(element, config);
                 callback(element);
             })

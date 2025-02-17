@@ -1,16 +1,21 @@
 export const generateFetchComponent = () => {
     return {
-        uploadImage: async(data) => {
+        book: async(data) => {
             const response = await fetch("/insert", {
                 method: "POST",
                 body: data
             }).catch(console.error);
             return response.json();
         },
-        getImages: async() => {
+        getBooks: async() => {
             const response = await fetch("/visits").catch(console.error);
             const json = await response.json();
             return json.visits;
+        },
+        getTypes: async() => {
+            const response = await fetch("/types").catch(console.error);
+            const json = await response.json();
+            return json.types;
         }
     };
 }

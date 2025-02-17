@@ -1,10 +1,9 @@
-import { parseConfiguration } from "./jsonParser.js";
-
 export function createForm(parentElement) {
     let data = [];
     let callback = null;
     let cancel = null;
     return {
+        build: (types) => { },
         setLabels: (labels) => { data = labels; },
         onsubmit: (callbackInput) => { callback = callbackInput },
         oncancel: (callbackInput) => { cancel = callbackInput },
@@ -41,7 +40,7 @@ export function createForm(parentElement) {
                     });
                     callback(result).then((res) => {
                         console.log(res);
-                        if(res === true) document.getElementById("cancel").click();
+                        if (res === true) document.getElementById("cancel").click();
 
                     }).catch(console.error);
                 }
@@ -63,25 +62,16 @@ export function createForm(parentElement) {
     };
 };
 
-function getJson() {
-    return new Promise((resolve, reject) => {
-        return parseConfiguration("../../config.json").then((parsedConfig) => { resolve(parsedConfig) }).catch(reject);
-    })
-}
-
 function generateOptions() {
+    const hours = [8,9,10,11,12];
     let firstItem;
     let lastItem;
-    return new Promise((resolve, reject) => {
-        getJson().then((json) => {
-            firstItem = json.hours[0];
-            lastItem = json.hours[json.hours.length - 1];
-            let result = "";
-            const template = "<option value='%val'>%val</option>"
-            for (let i = firstItem; i <= lastItem; i++) {
-                result += template.replaceAll("%val", i);
-            }
-            resolve(result);
-        }).catch(reject);
-    })
+    firstItem = hours[0];
+    lastItem = hours[hours.length - 1];
+    let result = "";
+    const template = "<option value='%val'>%val</option>"
+    for (let i = firstItem; i <= lastItem; i++) {
+        result += template.replaceAll("%val", i);
+    }
+    resolve(result);
 }
