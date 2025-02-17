@@ -9,3 +9,4 @@ node_modules
 config.json
 package-lock.json
 src/output.css
+ca.pem

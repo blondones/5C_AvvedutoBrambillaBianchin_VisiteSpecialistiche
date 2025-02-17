@@ -1,25 +1,31 @@
 {
   "name": "curoben",
-  "version": "1.0.0",
-  "description": "Repository per il compito visita specialistica di TPSI.",
+  "version": "1.0.1",
+  "description": "Repository per il compito visite specialistiche di TPSI.",
   "main": "src/index.js",
   "scripts": {
     "start": "npm install -y && npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche.git"
+    "url": "git+https://github.com/blondones/5C_AvvedutoBrambillaBianchin_VisiteSpecialistiche.git"
   },
-  "author": "Luca Avveduto, Angelo Ripamonti e Alexandros Kotis",
-  "license": "Apache-2.0",
+  "author": "Luca Avveduto, Gianluca Brambilla, Davide Bianchin",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche/issues"
+    "url": "https://github.com/blondones/5C_AvvedutoBrambillaBianchin_VisiteSpecialistiche/issues"
   },
-  "homepage": "https://github.com/LucaAvveduto/5C_AvvedutoRipamontiKotis_VisiteSpecialistiche#readme",
+  "homepage": "https://github.com/blondones/5C_AvvedutoBrambillaBianchin_VisiteSpecialistiche#readme",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
     "module": "^1.2.5",
     "moment": "^2.30.1",
+    "mysql2": "^3.12.0",
+    "path": "^0.12.7",
     "tailwind": "^4.0.0",
     "tailwindcss": "^3.4.14"
   },
