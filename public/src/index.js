@@ -44,11 +44,15 @@ await navbar.callback(async(element) => {
             document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
             return false;
         });
+        console.log(json)
         if (!json[key] && validateInput === undefined) {
             json[key] = values[2];
-            const book = {}
-            book[key] = values[2];
-            console.log(key)
+            const book = {
+                idType: element.name,
+                date: date.format("DD/MM/YYYY"),
+                hour:values[1],
+                name: values[2]
+            };
             await fetchComp.book(book).catch((error) => {
                 validateInput = false;
                 document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";

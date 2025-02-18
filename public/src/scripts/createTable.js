@@ -4,7 +4,6 @@ export const createTable = (parentElement) => {
   let availabilities = {};
   let config = {};
   let currentWeekOffset = 0;
-  let fetchComp;
   moment.locale("it");
 
 
@@ -40,6 +39,7 @@ export const createTable = (parentElement) => {
         rows += `<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"><th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">` + hour + `:00</th>`;
         weekDates.forEach(date => {
           const key = selectedCategory + `-` + date + `-` + hour;
+          console.log(availabilities)
           const booking = availabilities[key] || ``;
           rows += `<td class="px-6 py-4"">` + (booking ? booking : ``) + `</td>`;
         });

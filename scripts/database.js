@@ -40,17 +40,15 @@ module.exports = DBComponent = (conf) => {
 
     return {
         insert: async (visit) => {
-            console.log(visit)
-            const template = `INSERT INTO booking (idType, date, hour, name) VALUES ('$IDTYPE', '$DATE', '$HOUR', '$NAME')`;
-
-            let sql = template.replace("$IDTYPE", visit.idType);
-            console.log(visit.idType)
-            sql = sql.replace("$DATE", visit.date);
-            console.log(visit.date)
-            sql = sql.replace("$HOUR", visit.hour);
-            console.log(visit.hour)
+            const elements = visit.date.split("/");
+            const date = new Date(elements[2], elements[1] - 1, elements[0]).toISOString().split("T")[0];
+            console.log(date);
+            if(!date) return;
+            const response = await executeQuery(`SELECT name,id FROM type where name='${visit.idType}'`);
+            if(!response) return;
+            const template = `INSERT INTO booking (idType, date, hour, name) VALUES (${response[0].id}, '$DATE', ${visit.hour}, '$NAME')`;
+            let sql = template.replace("$DATE", date);
             sql = sql.replace("$NAME", visit.name);
-            console.log(visit.name)
             return await executeQuery(sql);
         },
 

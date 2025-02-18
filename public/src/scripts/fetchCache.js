@@ -3,9 +3,10 @@ export const generateFetchComponent = () => {
         book: async(data) => {
             const response = await fetch("/insert", {
                 method: "POST",
-                body: JSON.stringify({
-                    value: JSON.stringify(data)
-                })
+                headers : {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
             }).catch(console.error);
             return response.json();
         },
