@@ -45,12 +45,9 @@ await navbar.callback(async(element) => {
             document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
             return false;
         });
-        console.log(json)
-        for(let i = 0; i < json.length; i++) {
-            //console.log(values[1])
-            //console.log(json[i].hour)
-            console.log(json[i].date.split("T")[0] === date["_i"] && json[i].hour === values[1])
-            if(json[i].date.split("T")[0] === date["_i"] && json[i].hour == values[1]) {
+        const list = json.filter((e) => e.Category.toLowerCase() === element.name.toLowerCase());
+        for(let i = 0; i < list.length; i++) {
+            if(list[i].date.split("T")[0] === date["_i"] && list[i].hour == values[1]) {
                 validateInput = false;
                 break;
             }
