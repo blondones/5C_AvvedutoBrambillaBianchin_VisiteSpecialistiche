@@ -14,11 +14,13 @@ const booking = await fetchComp.getBooks();
 
 const table = createTable(document.getElementById("avabTable"));
 table.buildTable(booking);
+//console.log(document.getElementById("avabTable").innerHTML)
 
 const f = createForm(document.querySelector(".content"));
 const navbar = navBarComponent(document.getElementById("navbar"));
 
 await navbar.callback(async(element) => {
+    console.log(element)
     forwardButton.onclick = () => {
         offset++;
         table.render(element, offset);
@@ -49,7 +51,7 @@ await navbar.callback(async(element) => {
             json[key] = values[2];
             const book = {
                 idType: element.name,
-                date: date.format("DD/MM/YYYY"),
+                date: date.format("YYYY-MM-DD"),
                 hour:values[1],
                 name: values[2]
             };
@@ -59,6 +61,7 @@ await navbar.callback(async(element) => {
                 return false;
             });
             table.render(element, offset);
+            console.log("reder")
             validateInput = true;
             document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
             return true;

@@ -13,6 +13,8 @@ export const generateFetchComponent = () => {
         getBooks: async() => {
             const response = await fetch("/visits").catch(console.error);
             const json = await response.json();
+            console.error(json.visits);
+          
             return json.visits;
         },
         getTypes: async() => {

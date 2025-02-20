@@ -38,10 +38,16 @@ export const createTable = (parentElement) => {
       hours.forEach(hour => {
         rows += `<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"><th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">` + hour + `:00</th>`;
         weekDates.forEach(date => {
+          console.log(date)
           const key = selectedCategory + `-` + date + `-` + hour;
-          console.log(availabilities)
-          const booking = availabilities[key] || ``;
-          rows += `<td class="px-6 py-4"">` + (booking ? booking : ``) + `</td>`;
+          //const booking = availabilities[key] || ``;
+          const booking = availabilities.find(e => 
+            e.Category === selectedCategory["name"] &&
+            e.hour === hour &&
+            new Date(e.date).toLocaleDateString().replaceAll("/","") === date
+        );
+        console.log(booking)
+        rows += `<td class="px-6 py-4">${booking ? booking.name : ''}</td>`;
         });
         rows += `</tr>`;
       });
