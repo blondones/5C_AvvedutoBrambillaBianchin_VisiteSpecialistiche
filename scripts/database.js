@@ -40,10 +40,6 @@ module.exports = DBComponent = (conf) => {
 
     return {
         insert: async (visit) => {
-            const elements = visit.date.split("/");
-            //const date = new Date(elements[2], elements[1] - 1, elements[0]).toISOString().split("T")[0];
-            //console.log(date);
-            //if(!date) return;
             const response = await executeQuery(`SELECT name,id FROM type where name='${visit.idType}'`);
             if(!response) return;
             const template = `INSERT INTO booking (idType, date, hour, name) VALUES (${response[0].id}, '$DATE', ${visit.hour}, '$NAME')`;

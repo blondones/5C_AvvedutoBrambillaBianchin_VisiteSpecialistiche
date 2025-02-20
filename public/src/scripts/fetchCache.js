@@ -12,9 +12,7 @@ export const generateFetchComponent = () => {
         },
         getBooks: async() => {
             const response = await fetch("/visits").catch(console.error);
-            const json = await response.json();
-            console.error(json.visits);
-          
+            const json = await response.json();          
             return json.visits;
         },
         getTypes: async() => {

@@ -14,7 +14,6 @@ const booking = await fetchComp.getBooks();
 
 const table = createTable(document.getElementById("avabTable"));
 table.buildTable(booking);
-//console.log(document.getElementById("avabTable").innerHTML)
 
 const f = createForm(document.querySelector(".content"));
 const navbar = navBarComponent(document.getElementById("navbar"));
@@ -39,7 +38,7 @@ await navbar.callback(async(element) => {
         let validateInput;
         const date = moment(values[0], "YYYY/MM/DD");
         const closed = ["Saturday", "Sunday"];
-        if (date.calendar() < moment().calendar("MM/DD/YYYY") || closed.includes(date.format("dddd")) || isNaN(values[1])) validateInput = false;
+        if (date.calendar("DD/MM/YYYY") < moment().calendar("DD/MM/YYYY") || closed.includes(date.format("dddd")) || isNaN(values[1])) validateInput = false;
         const key = [element.name, date.format("DDMMYYYY"), values[1]].join("-");
         const json = await fetchComp.getBooks().catch(() => {
             validateInput = false;
@@ -47,8 +46,16 @@ await navbar.callback(async(element) => {
             return false;
         });
         console.log(json)
-        if (!json[key] && validateInput === undefined) {
-            json[key] = values[2];
+        for(let i = 0; i < json.length; i++) {
+            //console.log(values[1])
+            //console.log(json[i].hour)
+            console.log(json[i].date.split("T")[0] === date["_i"] && json[i].hour === values[1])
+            if(json[i].date.split("T")[0] === date["_i"] && json[i].hour == values[1]) {
+                validateInput = false;
+                break;
+            }
+        };
+        if (validateInput === undefined) {
             const book = {
                 idType: element.name,
                 date: date.format("YYYY-MM-DD"),
@@ -60,8 +67,9 @@ await navbar.callback(async(element) => {
                 document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
                 return false;
             });
+            const newData = await fetchComp.getBooks();
+            table.buildTable(newData);
             table.render(element, offset);
-            console.log("reder")
             validateInput = true;
             document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";
             return true;

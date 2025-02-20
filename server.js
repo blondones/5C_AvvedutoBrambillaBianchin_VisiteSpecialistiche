@@ -20,7 +20,6 @@ app.use("/moment/dist/moment.js", express.static(path.join(__dirname, "/node_mod
 
 
 app.post("/insert", async (req, res) => {
-  console.log(req.body)
     const visit = req.body;
   await db.insert(visit);
   res.json({result: "ok" });
@@ -29,6 +28,7 @@ app.post("/insert", async (req, res) => {
 
 app.get("/visits", async(req, res) => {
   const visits = await db.select();
+  console.log(visits)
   res.json({ visits: visits });
 });
 
