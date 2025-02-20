@@ -39,7 +39,12 @@ await navbar.callback(async(element) => {
         const date = moment(values[0], "YYYY/MM/DD");
         const closed = ["Saturday", "Sunday"];
         if (date.calendar("DD/MM/YYYY") < moment().calendar("DD/MM/YYYY") || closed.includes(date.format("dddd")) || isNaN(values[1])) validateInput = false;
-        const key = [element.name, date.format("DDMMYYYY"), values[1]].join("-");
+        for(let i = 0; i < values.length; i++) {
+            if(!values[i]) {
+                validateInput = false;
+                break;
+            }
+        }
         const json = await fetchComp.getBooks().catch(() => {
             validateInput = false;
             document.getElementById("result").innerHTML = validateInput === true ? "Ok" : "Ko";

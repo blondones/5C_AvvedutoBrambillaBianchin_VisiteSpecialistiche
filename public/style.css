@@ -37,3 +37,8 @@ html {
 #loading {
     margin-top: 25% !important;
 }
+
+#result {
+    color: red;
+    font-weight: bold;
+}
